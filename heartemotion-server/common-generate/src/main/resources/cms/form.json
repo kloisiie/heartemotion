@@ -1,0 +1,29 @@
+{
+  "page": [
+    {
+      "belong": "normal",
+      "columns": [
+        {
+          "belong": "normal",
+          "columns": [
+          ],
+          "type": "action",
+          "config": {
+            "prop": "action_1605663116739_52753"
+          },
+          "key": "action_1605663116739_52753"
+        }
+      ],
+      "type": "form",
+      "config": {
+        "editable": true,
+        "prop": "form"
+      },
+      "key": "form_1605663116739_98478"
+    }
+  ],
+  "config": {
+    "context": [
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+buildscript {
+    ext {
+        querydslVersion    = "4.2.1"
+    }
+}
+
+
+dependencies {
+
+    compile project(":common-web")
+
+    // spring boot jpa 支持
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+
+    // mysql 驱动 支持
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+
+
+    // Hibernate 支持
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.4.Final'
+    compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.4.4.Final'
+    compile 'com.vladmihalcea:hibernate-types-5:2.4.2'
+
+    // query dsl 支持
+    compile group: 'com.querydsl', name: 'querydsl-core', version: querydslVersion
+    compile group: 'com.querydsl', name: 'querydsl-sql', version: querydslVersion
+    compile group: 'com.querydsl', name: 'querydsl-jpa', version: querydslVersion
+
+}

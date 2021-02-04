@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Class type="class" name="${dtoName}" packageName="${basePackageName}.pojo.${module}"
+       explain="${dtoExplain}" author="${author}" createDate="${createDate}">
+    <Import>java.lang.*</Import>
+    <Import>java.util.*</Import>
+    <Import>io.swagger.annotations.ApiModelProperty</Import>
+    <Import>lombok.Data</Import>
+
+    <Annotation>@Data</Annotation>
+
+</Class>

@@ -1,0 +1,11 @@
+
+dependencies {
+
+    compile project(":common-web")
+
+    // spring boot security 支持
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+
+    // jwt 支持
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+}

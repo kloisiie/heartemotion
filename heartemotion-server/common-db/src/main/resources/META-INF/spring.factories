@@ -1,0 +1,2 @@
+com.brframework.commondb.druid.EnableAutoConfiguration=\
+com.brframework.commondb.druid.DruidDataSourceAutoConfigure

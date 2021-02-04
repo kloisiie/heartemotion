@@ -1,0 +1,18 @@
+dependencies {
+
+    //google guava 工具
+    compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
+
+    //apache commons 工具
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
+    //fastjson json处理工具(自适应版本)
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.60'
+
+    // https://mvnrepository.com/artifact/cn.hutool/hutool-all
+    compile group: 'cn.hutool', name: 'hutool-all', version: '4.6.8'
+
+    // 函数式编程工具
+    compile group: 'io.vavr', name: 'vavr', version: '0.10.2'
+
+}

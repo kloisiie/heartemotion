@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>blitzcrank.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>AA406BFED25DBFCDEABB9DC81E45BD3B45119608</string>
+				<key>dateExpires</key>
+				<string>2021/5/6</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>AA406BFED25DBFCDEABB9DC81E45BD3B45119608</string>
+						<key>dateExpires</key>
+						<string>2021/5/6</string>
+						<key>type</key>
+						<string>Apple Development</string>
+					</dict>
+					<key>name</key>
+					<string>PLPlayerKit.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>2C9DZ9X7C9</string>
+						<key>name</key>
+						<string>peiyu gao</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>2C9DZ9X7C9.com.blitzcrank.app</string>
+				<key>com.apple.developer.associated-domains</key>
+				<array>
+					<string>applinks:www.xfmbh.com</string>
+				</array>
+				<key>com.apple.developer.team-identifier</key>
+				<string>2C9DZ9X7C9</string>
+				<key>get-task-allow</key>
+				<true/>
+			</dict>
+			<key>name</key>
+			<string>兴发美博汇.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>7db9fb6c-aaca-4f54-bff2-6503cff49ee7</string>
+				<key>name</key>
+				<string>development</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>2C9DZ9X7C9</string>
+				<key>name</key>
+				<string>peiyu gao</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

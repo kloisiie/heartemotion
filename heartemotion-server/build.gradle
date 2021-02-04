@@ -1,0 +1,51 @@
+group 'com.brframework'
+version '1.0'
+
+
+// 所有子项目的通用配置
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    group 'com.brframework'
+    version '1.0'
+
+    // JVM 版本号要求
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    //java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+    //定义版本号
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+
+    repositories {
+        //使用阿里云的maven库，加快构建速度
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+
+
+    dependencies {
+
+        tasks.withType(JavaCompile) {
+            options.encoding = "UTF-8"
+        }
+
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+
+        //设置本地library引用
+        compile fileTree(dir:'src/libs',include:['*.jar'])
+
+        //lombok支持
+        compile 'org.projectlombok:lombok:1.18.4'
+        annotationProcessor 'org.projectlombok:lombok:1.18.4'
+        testCompile 'org.projectlombok:lombok:1.18.4'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    }
+
+}

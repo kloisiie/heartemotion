@@ -1,0 +1,55 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'java'
+}
+
+bootJar {
+    launchScript()
+}
+
+
+
+configurations {
+    querydslapt
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir file("metamodels")
+        }
+    }
+}
+
+task querymodels(type: JavaCompile, group: 'build') {
+    doFirst {
+        delete file("metamodels");
+        file("metamodels").mkdirs();
+    }
+
+    classpath = configurations.compile + configurations.querydslapt
+    destinationDir = file("metamodels")
+
+    source = sourceSets.main.java
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor",
+            "-s", file("metamodels")
+    ]
+}
+
+
+dependencies {
+    // spring boot 单元测试支持
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
+
+    compile project(":common-web-admin")
+    compile project(":common-db")
+    compile project(":common-security")
+    compile project(":common-api-doc")
+    compile project(":common-log")
+    compile project(":common-cms2")
+
+    querydslapt("com.querydsl:querydsl-apt:4.2.1")
+}

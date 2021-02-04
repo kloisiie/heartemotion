@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Class type="interface" name="${funCode}Service" packageName="${basePackageName}.service.${module}"
+       explain="${funExplain}服务实现" author="${author}" createDate="${createDate}">
+    <Import>java.lang.*</Import>
+    <Import>java.util.*</Import>
+    <Import>${basePackageName}.entity.${module}.*</Import>
+    <Import>org.springframework.data.domain.Page</Import>
+    <Import>com.brframework.commonweb.json.PageParam</Import>
+    <Import>${basePackageName}.pojo.${module}.*</Import>
+
+    <!-- 通过ID查询 -->
+    <Method name="find${funCode}ById" explain="通过ID查询${funExplain}">
+        <Return type="${funEntityType}" explain="${funExplain}" />
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+    </Method>
+
+    <!-- 分页查询 -->
+    <Method name="find${funCode}Page" explain="分页查询${funExplain}">
+        <Return type="Page&lt;${funEntityType}&gt;" explain="${funExplain}分页" />
+        <Param name="pageParam" type="PageParam" explain="分页参数" />
+        <Param name="queryParam" type="${pageQueryType}" explain="查询参数" />
+    </Method>
+
+    <!-- 添加 -->
+    <Method name="insert${funCode}" explain="添加${funExplain}">
+        <Return type="void" explain="" />
+        <Param name="insertParam" type="${insertParamType}" explain="添加参数" />
+    </Method>
+
+    <!-- 修改 -->
+    <Method name="update${funCode}" explain="修改${funExplain}">
+        <Return type="void" explain="" />
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+        <Param name="updateParam" type="${updateParamType}" explain="修改参数" />
+    </Method>
+
+    <!-- 删除 -->
+    <Method name="remove${funCode}ById" explain="删除${funExplain}">
+        <Return type="void" explain="" />
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+    </Method>
+</Class>

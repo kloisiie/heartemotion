@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Class type="class" name="${funCode}ServiceImpl" packageName="${basePackageName}.service.${module}.impl" implementsClass="${serviceInterfaceType}"
+       explain="${funExplain}服务实现" author="${author}" createDate="${createDate}">
+
+    <Import>java.lang.*</Import>
+    <Import>java.util.*</Import>
+    <Import>java.time.LocalDateTime</Import>
+    <Import>org.springframework.data.domain.*</Import>
+    <Import>com.brframework.commonweb.json.PageParam</Import>
+    <Import>${basePackageName}.dao.${module}.*</Import>
+    <Import>${basePackageName}.entity.${module}.*</Import>
+    <Import>${basePackageName}.pojo.${module}.*</Import>
+    <Import>${basePackageName}.service.${module}.*</Import>
+    <Import>org.springframework.stereotype.Service</Import>
+    <Import>org.springframework.beans.factory.annotation.Autowired</Import>
+    <Import>lombok.extern.slf4j.Slf4j</Import>
+    <Import>com.brframework.commondb.utils.QueryUtils</Import>
+    <Import>com.brframework.commondb.core.ExQuery</Import>
+    <Import>org.springframework.transaction.annotation.Transactional</Import>
+    <Import>com.brframework.commondistributed.annotation.DistributedLock</Import>
+    <Import>com.querydsl.jpa.impl.JPAQueryFactory</Import>
+    <Import>javax.annotation.Resource</Import>
+    <Import>javax.persistence.EntityManager</Import>
+    <Import>com.querydsl.core.QueryResults</Import>
+
+
+    <Annotation>@Service</Annotation>
+    <Annotation>@Slf4j</Annotation>
+
+    <Field visible="private" type="${daoType}" name="${funCodeDao}" explain="${funExplain}Dao">
+        <Annotation>@Autowired</Annotation>
+    </Field>
+    <Field visible="private" type="JPAQueryFactory" name="queryFactory" explain="QueryDSL查询">
+    </Field>
+
+    <!--注入QueryFactory-->
+    <Method visible="public" name="setQueryFactory" explain="设置QueryFactory">
+        <Return type="void"/>
+        <Annotation>@Resource</Annotation>
+        <Param name="entityManager" type="EntityManager" explain="entity manager">
+            <Annotation>@Autowired</Annotation>
+        </Param>
+        <Body>
+    queryFactory = new JPAQueryFactory(entityManager);
+        </Body>
+    </Method>
+
+    <!-- 通过ID查询 -->
+    <Method visible="public" name="find${funCode}ById" explain="通过ID查询${funExplain}">
+        <Return type="${funEntityType}" explain="${funExplain}" />
+        <Annotation>@Override</Annotation>
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+        <Body>
+    return ${funCodeDao}.findById(${lowerFirstFunCode}Id).orElse(null);
+        </Body>
+    </Method>
+
+    <!-- 分页查询 -->
+    <Method visible="public" name="find${funCode}Page" explain="分页查询${funExplain}">
+        <Return type="Page&lt;${funEntityType}&gt;" explain="${funExplain}分页" />
+        <Annotation>@Override</Annotation>
+        <Param name="pageParam" type="PageParam" explain="分页参数" />
+        <Param name="queryParam" type="${pageQueryType}" explain="查询参数" />
+        <Body>
+    QueryResults&lt;${funEntityType}&gt; results = queryFactory.select(Q${funEntityType}.${lowerFirstFunCode})
+        .from(Q${funEntityType}.${lowerFirstFunCode})
+        .where(ExQuery.booleanExpressionBuilder()
+${queryBody}
+            .build())
+        .offset(pageParam.getPageIndex() * pageParam.getPageSize())
+        .limit(pageParam.getPageSize())
+        .orderBy(Q${funEntityType}.${lowerFirstFunCode}.createDate.desc())
+        .fetchResults();
+
+    return new PageImpl&lt;&gt;(results.getResults(), Pageable.unpaged(), results.getTotal());
+        </Body>
+    </Method>
+
+    <!-- 添加 -->
+    <Method visible="public" name="insert${funCode}" explain="添加${funExplain}">
+        <Return type="void" explain="" />
+        <Annotation>@Override</Annotation>
+        <Annotation>@Transactional(rollbackFor = Exception.class)</Annotation>
+        <Param name="insertParam" type="${insertParamType}" explain="添加参数" />
+
+        <Body>
+    ${funEntityType} ${lowerFirstFunCode} = new ${funEntityType}();
+    ${lowerFirstFunCode}.setCreateDate(LocalDateTime.now());
+${insertBody}
+    ${funCodeDao}.save(${lowerFirstFunCode});
+        </Body>
+    </Method>
+
+    <!-- 修改 -->
+    <Method visible="public" name="update${funCode}" explain="修改${funExplain}">
+        <Return type="void" explain="" />
+        <Annotation>@Override</Annotation>
+        <Annotation>@Transactional(rollbackFor = Exception.class)</Annotation>
+        <Annotation>@DistributedLock(key = "'update${funCode}'+ #${lowerFirstFunCode}Id")</Annotation>
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+        <Param name="updateParam" type="${updateParamType}" explain="修改参数" />
+
+        <Body>
+    ${funEntityType} ${lowerFirstFunCode} = find${funCode}ById(${lowerFirstFunCode}Id);
+${updateBody}
+    ${funCodeDao}.save(${lowerFirstFunCode});
+        </Body>
+    </Method>
+
+    <!-- 删除 -->
+    <Method visible="public" name="remove${funCode}ById" explain="删除${funExplain}">
+        <Return type="void" explain="" />
+        <Annotation>@Override</Annotation>
+        <Annotation>@Transactional(rollbackFor = Exception.class)</Annotation>
+        <Annotation>@DistributedLock(key = "'remove${funCode}'+ #${lowerFirstFunCode}Id")</Annotation>
+        <Param name="${lowerFirstFunCode}Id" type="${funEntityIdType}" explain="${funExplain}的ID" />
+
+        <Body>
+    ${funEntityType} ${lowerFirstFunCode} = find${funCode}ById(${lowerFirstFunCode}Id);
+    ${funCodeDao}.delete(${lowerFirstFunCode});
+        </Body>
+    </Method>
+</Class>

@@ -1,0 +1,16 @@
+${packageName}
+
+${importList}
+
+/**
+ ${classExplain}
+ * @author ${classAuthor}
+ * @date ${createDate}
+ */ ${classAnnotations}
+public ${type} ${className}${extendsClass}${implementsClass}{
+
+${fields}
+
+${methods}
+
+}

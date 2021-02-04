@@ -1,0 +1,40 @@
+
+
+configurations {
+    querydslapt
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir file("metamodels")
+        }
+    }
+}
+
+task querymodels(type: JavaCompile, group: 'build') {
+    doFirst {
+        delete file("metamodels");
+        file("metamodels").mkdirs();
+    }
+
+    classpath = configurations.compile + configurations.querydslapt
+    destinationDir = file("metamodels")
+
+    source = sourceSets.main.java
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor",
+            "-s", file("metamodels")
+    ]
+}
+
+//代码编译前，自动执行querymodels
+compileJava.dependsOn querymodels
+
+dependencies {
+    compile project(":common-web")
+    compile project(":common-db")
+
+    querydslapt("com.querydsl:querydsl-apt:4.2.1")
+}

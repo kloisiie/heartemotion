@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">心率监测</string>
+    <string name="CodePushDeploymentKey"></string>
+    <string name="UMKey"></string>
+    <string name="UMSecret"></string>
+</resources>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Class type="class" name="Admin${funCode}Controller" packageName="${basePackageName}.web.admin"
+       explain="${funName}模块" author="${author}" createDate="${createDate}">
+
+    <Import>java.lang.*</Import>
+    <Import>java.util.*</Import>
+    <Import>com.brframework.commonweb.json.PageParam</Import>
+    <Import>${basePackageName}.entity.${module}.*</Import>
+    <Import>${basePackageName}.pojo.${module}.*</Import>
+    <Import>${basePackageName}.service.${module}.*</Import>
+    <Import>${basePackageName}.json.admin.${module}.*</Import>
+    <Import>org.springframework.web.bind.annotation.*</Import>
+    <Import>org.springframework.beans.factory.annotation.Autowired</Import>
+    <Import>lombok.extern.slf4j.Slf4j</Import>
+
+    <Import>com.brframework.commoncms.annatotion.AdminMenu</Import>
+    <Import>com.brframework.commoncms.annatotion.layout.ListLayout</Import>
+    <Import>com.brframework.commoncms.annatotion.layout.PageLayout</Import>
+    <Import>com.brframework.commoncms.annatotion.layout.EditAlertLayout</Import>
+    <Import>com.brframework.commoncms.annatotion.option.CmsOption</Import>
+    <Import>com.brframework.commonweb.json.JSONResult</Import>
+    <Import>com.brframework.commonweb.json.Page</Import>
+    <Import>com.brframework.commonweb.json.PageParam</Import>
+    <Import>io.swagger.annotations.Api</Import>
+    <Import>io.swagger.annotations.ApiOperation</Import>
+    <Import>org.springframework.security.access.prepost.PreAuthorize</Import>
+    <Import>javax.validation.Valid</Import>
+    <Import>static com.brframework.commondb.core.ControllerPageHandle.*</Import>
+
+    <Annotation>@RestController</Annotation>
+    <Annotation>@Api(tags = "${funName}模块")</Annotation>
+    <Annotation>@AdminMenu(menuName = "${funName}模块")</Annotation>
+    <Annotation>@RequestMapping("/admin/access")</Annotation>
+    <Annotation>@Slf4j</Annotation>
+
+    <Field visible="public" type="${serviceType}" name="${funCodeService}" explain="${funName}Service">
+        <Annotation>@Autowired</Annotation>
+    </Field>
+
+
+    <!-- 分页查询列表 -->
+    <Method visible="public" name="${lowerFirstFunCode}PageV1">
+        <Return type="JSONResult&lt;Page&lt;${queryResultType}&gt;&gt;"/>
+        <Annotation>@ApiOperation(value = "${funName}列表", notes = "${funName}列表")</Annotation>
+        <Annotation>@GetMapping("/v1/${module}/${partFunCode}/list")</Annotation>
+        <Annotation>@AdminMenu(menuName = "${funName}模块")</Annotation>
+        <Annotation>@PreAuthorize("hasRole('${module}-${partFunCode}-query')")</Annotation>
+        <Annotation>@PageLayout(
+    options = {
+        @CmsOption(name = "添加", uriMappingMethod = "${lowerFirstFunCode}AddV1")
+    },
+    columnOptions = {
+        @CmsOption(name = "修改", uriMappingMethod = "${lowerFirstFunCode}UpdateV1"),
+        @CmsOption(name = "删除", alert = "您确定删除吗", uriMappingMethod = "${lowerFirstFunCode}DeleteV1")
+    }
+)</Annotation>
+        <Param name="pageParam" type="PageParam" />
+        <Param name="queryParam" type="${queryParamType}" />
+        <Body>
+    ${pageQueryParamDTOType} dtoParam = new ${pageQueryParamDTOType}();
+    ${queryDtoSetCode}
+    return JSONResult.ok(jpaPageHandleToPage(
+            ${funCodeService}.find${funCode}Page(pageParam, dtoParam), pageParam,
+            this::${lowerFirstFunCode}ToResult
+    ));
+        </Body>
+    </Method>
+
+    <!-- 详情查询 -->
+    <Method visible="public" name="${lowerFirstFunCode}DetailsV1">
+        <Return type="JSONResult&lt;${detailResultType}&gt;"/>
+        <Annotation>@ApiOperation(value = "${funName}详情", notes = "${funName}详情")</Annotation>
+        <Annotation>@GetMapping("/v1/${module}/${partFunCode}/details/{id}")</Annotation>
+        <Annotation>@PreAuthorize("hasRole('${module}-${partFunCode}-query')")</Annotation>
+        <Param name="id" type="${funEntityIdType}">
+            <Annotation>@PathVariable</Annotation>
+        </Param>
+        <Body>
+    return JSONResult.ok(${lowerFirstFunCode}ToDetailResult(${funCodeService}.find${funCode}ById(id)));
+        </Body>
+    </Method>
+
+    <!-- 添加 -->
+    <Method visible="public" name="${lowerFirstFunCode}AddV1">
+        <Return type="JSONResult"/>
+        <Annotation>@ApiOperation(value = "添加${funName}", notes = "添加${funName}")</Annotation>
+        <Annotation>@PostMapping("/v1/${module}/${partFunCode}/add")</Annotation>
+        <Annotation>@PreAuthorize("hasRole('${module}-${partFunCode}-add')")</Annotation>
+        <Annotation>@EditAlertLayout</Annotation>
+        <Param name="insertParam" type="${insertParamType}">
+            <Annotation>@RequestBody</Annotation>
+            <Annotation>@Valid</Annotation>
+        </Param>
+
+        <Body>
+    ${insertParamDTOType} dtoParam = new ${insertParamDTOType}();
+${insertDtoSetCode}
+    ${funCodeService}.insert${funCode}(dtoParam);
+    return JSONResult.ok();
+        </Body>
+    </Method>
+
+    <!-- 修改 -->
+    <Method visible="public" name="${lowerFirstFunCode}UpdateV1">
+        <Return type="JSONResult" />
+        <Annotation>@ApiOperation(value = "修改${funName}", notes = "修改${funName}")</Annotation>
+        <Annotation>@PostMapping("/v1/${module}/${partFunCode}/update/{id}")</Annotation>
+        <Annotation>@PreAuthorize("hasRole('${module}-${partFunCode}-update')")</Annotation>
+        <Annotation>@EditAlertLayout(paddingMappingMethod = "${lowerFirstFunCode}DetailsV1")</Annotation>
+        <Param name="id" type="${funEntityIdType}">
+            <Annotation>@PathVariable</Annotation>
+        </Param>
+        <Param name="updateParam" type="${updateParamType}">
+            <Annotation>@RequestBody</Annotation>
+            <Annotation>@Valid</Annotation>
+        </Param>
+
+        <Body>
+    ${updateParamDTOType} dtoParam = new ${updateParamDTOType}();
+${updateDtoSetCode}
+    ${funCodeService}.update${funCode}(id, dtoParam);
+    return JSONResult.ok();
+        </Body>
+    </Method>
+
+
+    <!-- 删除 -->
+    <Method visible="public" name="${lowerFirstFunCode}DeleteV1">
+        <Return type="JSONResult"/>
+        <Annotation>@ApiOperation(value = "删除${funName}", notes = "删除${funName}")</Annotation>
+        <Annotation>@DeleteMapping("/v1/${module}/${partFunCode}/del/{id}")</Annotation>
+        <Annotation>@PreAuthorize("hasRole('${module}-${partFunCode}-del')")</Annotation>
+        <Param name="id" type="${funEntityIdType}">
+            <Annotation>@PathVariable</Annotation>
+        </Param>
+
+        <Body>
+    ${funCodeService}.remove${funCode}ById(id);
+    return JSONResult.ok();
+        </Body>
+    </Method>
+
+
+    <!-- Result转换 -->
+    <Method visible="private" name="${lowerFirstFunCode}ToResult" explain="${funName}Result转换">
+        <Return type="${queryResultType}"/>
+        <Param name="${lowerFirstFunCode}" type="${funEntityType}" explain="${funName}" />
+
+        <Body>
+    ${queryResultType} result = new ${queryResultType}();
+${resultSetCode}
+    return result;
+        </Body>
+    </Method>
+
+    <!-- detailResult转换 -->
+    <Method visible="private" name="${lowerFirstFunCode}ToDetailResult" explain="${funName}DetailResult转换">
+        <Return type="${detailResultType}"/>
+        <Param name="${lowerFirstFunCode}" type="${funEntityType}" explain="${funName}" />
+
+        <Body>
+    ${detailResultType} result = new ${detailResultType}();
+${detailResultSetCode}
+    return result;
+        </Body>
+    </Method>
+</Class>

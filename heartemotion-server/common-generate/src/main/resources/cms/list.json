@@ -1,0 +1,90 @@
+{
+  "page": [
+    {
+      "belong": "normal",
+      "columns": [
+        {
+          "belong": "normal",
+          "columns": [
+
+          ],
+          "name": "操作栏",
+          "icon": "action",
+          "type": "action",
+          "config": {
+            "prop": "action_1605662873727_13444"
+          },
+          "key": "action_1605662873727_13444"
+        },
+        {
+          "belong": "normal",
+          "columns": [
+            {
+              "belong": "normal",
+              "columns": [
+                {
+                  "columns": [
+                  ],
+                  "type": "col",
+                  "key": "col_1605662873727_72813"
+                },
+                {
+                  "columns": [
+                  ],
+                  "type": "col",
+                  "key": "col_1605662873727_78884"
+                },
+                {
+                  "columns": [
+                  ],
+                  "type": "col",
+                  "key": "col_1605662873727_48914"
+                }
+              ],
+              "name": "栅格布局",
+              "icon": "grid",
+              "type": "grid",
+              "config": {
+                "prop": "grid_1605662873727_70894"
+              },
+              "key": "grid_1605662873727_70894"
+            }
+          ],
+          "name": "搜索栏",
+          "icon": "search",
+          "type": "search",
+          "config": {
+            "prop": "search"
+          },
+          "key": "search_1605662873727_95649"
+        },
+        {
+          "belong": "normal",
+          "columns": [
+          ],
+          "name": "表格布局",
+          "icon": "table",
+          "type": "table",
+          "config": {
+            "pagination": true,
+            "selection": true,
+            "prop": "table_1605662873727_52642",
+            "height": 500
+          },
+          "key": "table_1605662873727_52642"
+        }
+      ],
+      "type": "list",
+      "config": {
+        "pagination": true,
+        "prop": "list_1605662873727_63829",
+        "searchUrl": ""
+      },
+      "key": "list_1605662873727_63829"
+    }
+  ],
+  "config": {
+    "context": [
+    ]
+  }
+}

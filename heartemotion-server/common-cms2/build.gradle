@@ -1,0 +1,47 @@
+
+
+configurations {
+    querydslapt
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir file("metamodels")
+        }
+    }
+}
+
+task querymodels(type: JavaCompile, group: 'build') {
+    doFirst {
+        delete file("metamodels");
+        file("metamodels").mkdirs();
+    }
+
+    classpath = configurations.compile + configurations.querydslapt
+    destinationDir = file("metamodels")
+
+    source = sourceSets.main.java
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor",
+            "-s", file("metamodels")
+    ]
+}
+
+//代码编译前，自动执行querymodels
+compileJava.dependsOn querymodels
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile project(":common-web")
+    compile project(":common-security")
+
+    compile project(":common-db")
+
+    querydslapt("com.querydsl:querydsl-apt:4.2.1")
+
+    // apache poi 用于excel导出
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+}

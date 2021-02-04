@@ -1,0 +1,36 @@
+rootProject.name = 'xinlv'
+include ':react-native-photobrowser'
+project(':react-native-photobrowser').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-photobrowser/android')
+include ':rn-fetch-blob'
+project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
+include ':react-native-get-channel'
+project(':react-native-get-channel').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-get-channel/android')
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':react-native-reanimated'
+project(':react-native-reanimated').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-reanimated/android')
+include ':react-native-screens'
+project(':react-native-screens').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-screens/android')
+include ':react-native-webview'
+project(':react-native-webview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview/android')
+include ':react-native-syan-image-picker'
+project(':react-native-syan-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-syan-image-picker/android')
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
+include ':react-native-share-preference'
+project(':react-native-share-preference').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-share-preference/android')
+include ':react-native-permissions'
+project(':react-native-permissions').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-permissions/android')
+include ':react-native-linear-gradient'
+project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')
+include ':react-native-gesture-handler'
+project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+include ':react-native-appupdate'
+project(':react-native-appupdate').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-appupdate/android')
+include ':react-native-oss'
+project(':react-native-oss').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-oss/android')
+include ':app', ':react-native-code-push'
+project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')

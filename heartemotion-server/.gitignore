@@ -1,0 +1,13 @@
+.idea
+*.iml
+*.ipr
+*.iws
+.vscode
+out
+gen
+.gradle
+build
+doc
+gradle
+generated
+metamodels

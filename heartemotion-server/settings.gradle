@@ -1,0 +1,13 @@
+rootProject.name = 'gragas'
+include 'common'
+include 'common-web'
+include 'common-web-admin'
+include 'common-web-base'
+include 'common-db'
+include 'common-security'
+include 'common-generate'
+include 'common-api-doc'
+include 'common-log'
+include 'boot-gragas'
+include 'common-cms2'
+

@@ -1,0 +1,101 @@
+platform :ios, '9.0'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+source 'https://github.com/CocoaPods/Specs.git'
+target 'Base' do
+  config = use_native_modules!
+  use_react_native!(:path => config["reactNativePath"])
+  
+  pod 'AFNetworking', '~> 4.0'
+  pod 'SDWebImage', '5.0'
+  pod 'IQKeyboardManager','6.5.4'
+  #mobtech第三方登录和分享
+  # 主模块(必须)
+  pod 'mob_sharesdk'
+  # UI模块(非必须，需要用到ShareSDK提供的分享菜单栏和分享编辑页面需要以下1行)
+  pod 'mob_sharesdk/ShareSDKUI'
+  #需要精简版QQ，微信，微博，Facebook的可以加这3个命令（精简版去掉了这4个平台的原生SDK）
+  pod 'mob_sharesdk/ShareSDKPlatforms/QQ_Lite'
+  pod 'mob_sharesdk/ShareSDKPlatforms/WeChat_Lite'
+  
+  #极光推送
+  pod 'JPush','3.3.6'
+  
+  #友盟用于app基础统计，bug日志统计
+  pod 'UMCCommon'
+  pod 'UMCCommonLog'
+  
+
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
+  pod 'RNOss', :path => '../node_modules/react-native-oss'
+
+  pod 'RNAppupdate', :path => '../node_modules/react-native-appupdate'
+
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
+  pod 'RNSharePreference', :path => '../node_modules/react-native-share-preference'
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
+  pod 'RNSyanImagePicker', :path => '../node_modules/react-native-syan-image-picker/ios'
+
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+ 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+  
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral.podspec"
+  pod 'Permission-Calendars', :path => "#{permissions_path}/Calendars.podspec"
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+  pod 'Permission-Contacts', :path => "#{permissions_path}/Contacts.podspec"
+  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID.podspec"
+  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary.podspec"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone.podspec"
+  pod 'Permission-Motion', :path => "#{permissions_path}/Motion.podspec"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
+  pod 'Permission-Reminders', :path => "#{permissions_path}/Reminders.podspec"
+  pod 'Permission-Siri', :path => "#{permissions_path}/Siri.podspec"
+  pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition.podspec"
+  pod 'Permission-StoreKit', :path => "#{permissions_path}/StoreKit.podspec"
+
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
+  pod 'RNPhotobrowser', :path => '../node_modules/react-native-photobrowser'
+
+  target 'BaseTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable these next few lines.
+  use_flipper!
+  post_install do |installer|
+    flipper_post_install(installer)
+  end
+end
+
+target 'Base-tvOS' do
+  # Pods for Base-tvOS
+
+  target 'Base-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+end
